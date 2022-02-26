@@ -5,9 +5,7 @@ const docClient = new AWS.DynamoDB.DocumentClient();
 
 module.exports.listAllNFTs = async (event) => {
   if (event.headers.Authorization) {
-    //console.log("Authorization - " + event.headers.Authorization);
     let token = event.headers.Authorization.split(' ')[1];
-    //console.log("Token - " + token);
     if (token != "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c") {
       return {
         statusCode: 401,
@@ -67,7 +65,6 @@ module.exports.listAllNFTs = async (event) => {
     };
     try {
       let result = await docClient.scan(params).promise();
-      //console.log(result);
       return {
         statusCode: 200,
         body: JSON.stringify(
@@ -80,7 +77,6 @@ module.exports.listAllNFTs = async (event) => {
         ),
       };
     } catch (error) {
-      //console.log(error);
       return {
         statusCode: 400,
         body: JSON.stringify(
